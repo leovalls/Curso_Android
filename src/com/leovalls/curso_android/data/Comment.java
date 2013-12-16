@@ -1,15 +1,39 @@
 package com.leovalls.curso_android.data;
 
 
+/**
+ * @author LVa
+ *
+ */
 public class Comment {
 	
-	private String comentario;
+	private String idObject;
+	private String comment;
+	private String type;
+	
 
-	public String getComentario() {
-		return comentario;
+	public String getIdObject() {
+		return idObject;
 	}
 
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+	public void setIdObject(String idObject) {
+		this.idObject = idObject;
 	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }
