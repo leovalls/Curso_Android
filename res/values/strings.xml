@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Curso Android</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="see_list">Ver Listado</string>
+    <string name="see_picture">Ver Foto</string>
+    <string name="call">Llamar</string>
+    <string name="imagen_prueba">Imagen de prueba</string>
+    <string name="img_comment">Comentarios</string>
+    <string name="store_list">Listado de tiendas</string>
+    <string name="store_detail">Detalle de la tienda</string>
+    <string name="picture">Imágen</string>
+    <string name="action_share">Compartir</string>
+    <string name="action_favorite">Favorito</string>
+    <string name="msg_img_share">Imágen compartida</string>
+    <string name="msg_store_share">Te comparto este lugar: %1$s </string>
+    <string name="title_fragment_list">Listado</string>
+    <string name="title_fragment_map">Mapa</string>
+    
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="lorem_ipsum_list">*   Lorem ipsum dolor sit amet. \n\n*   Lorem ipsum dolor sit amet. \n\n*   Lorem ipsum dolor sit amet.</string>
+    
+        
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Cerrar</string>
+    <string-array name="drawer_options">
+        <item>Imágenes</item>
+        <item>Tiendas</item>
+        <item>Comunidad</item>
+    </string-array>
+
+</resources>
