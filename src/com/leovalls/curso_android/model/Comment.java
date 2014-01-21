@@ -1,4 +1,4 @@
-package com.leovalls.curso_android.data;
+package com.leovalls.curso_android.model;
 
 
 /**
@@ -7,10 +7,20 @@ package com.leovalls.curso_android.data;
  */
 public class Comment {
 	
+	private String id;
 	private String idObject;
 	private String comment;
 	private String type;
 	
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getIdObject() {
 		return idObject;

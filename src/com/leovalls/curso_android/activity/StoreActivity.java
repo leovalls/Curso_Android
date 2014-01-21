@@ -1,7 +1,5 @@
 package com.leovalls.curso_android.activity;
 
-import java.util.HashMap;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,11 +18,13 @@ import android.widget.Toast;
 
 import com.leovalls.curso_android.R;
 import com.leovalls.curso_android.fragments.CommentsFragment;
+import com.leovalls.curso_android.model.Store;
+import com.leovalls.curso_android.utils.ParseUtils;
 import com.leovalls.curso_android.utils.Utils;
 
 public class StoreActivity extends FragmentActivity{
 	
-	HashMap<String, String> store = new HashMap<String, String> ();
+	Store store = new Store ();
 	String storeText = "";
 	
 	@Override
@@ -46,7 +46,7 @@ public class StoreActivity extends FragmentActivity{
 			public void onClick(View v) {
 				try {
 					Intent intent = new Intent(Intent.ACTION_DIAL);
-					intent.setData(Uri.parse("tel:" +store.get(Utils.PHONE)));
+					intent.setData(Uri.parse("tel:" +store.getPhone()));
 					startActivity(intent);
 				} catch (ActivityNotFoundException activityException) {
 					Toast.makeText(getApplicationContext(), "Error al realizar la llamada", Toast.LENGTH_SHORT).show();
@@ -61,34 +61,34 @@ public class StoreActivity extends FragmentActivity{
 	public void getStoreInfo() {
 		Intent intent = getIntent();
 		String id = intent.getStringExtra(Utils.ID);
-	    store = Utils.getStoreById(id);
+	    store = ParseUtils.getStoreById(id, this);
 	    
 	    TextView storeName = (TextView) findViewById(R.id.txtStoreName);
-	    storeName.setText(store.get(Utils.STORE));
-	    storeText += store.get(Utils.STORE) + ". ";
+	    storeName.setText(store.getName());
+	    storeText += store.getName() + ". ";
 	    
 	    TextView storeDescription = (TextView) findViewById(R.id.txtStoreDescription);
-	    storeDescription.setText(store.get(Utils.DESCRIPTION));
+	    storeDescription.setText(store.getDescription());
 	    
 	    TextView storeAddress = (TextView) findViewById(R.id.txtStoreAddress);
-	    storeAddress.setText(store.get(Utils.ADDRESS));
+	    storeAddress.setText(store.getAddress());
 	    Linkify.addLinks(storeAddress, Linkify.ALL);
-	    storeText += store.get(Utils.ADDRESS) + ". ";
+	    storeText += store.getAddress() + ". ";
 	    
 	    TextView storePhone = (TextView) findViewById(R.id.txtStorePhone);
-	    storePhone.setText(store.get(Utils.PHONE));
+	    storePhone.setText(store.getPhone());
 	    Linkify.addLinks(storePhone, Linkify.ALL);
-	    storeText += store.get(Utils.PHONE) + ". ";
+	    storeText += store.getPhone() + ". ";
 	    
 	    TextView storeHorary = (TextView) findViewById(R.id.txtStoreHorary);
-	    storeHorary.setText(store.get(Utils.HORARY));
+	    storeHorary.setText(store.getHorary());
 	    
 	    TextView storeWeb = (TextView) findViewById(R.id.txtStoreWeb);
-	    storeWeb.setText(store.get(Utils.WEB));
+	    storeWeb.setText(store.getWebsite());
 	    Linkify.addLinks(storeWeb, Linkify.ALL);
 	    
 	    TextView storeMail = (TextView) findViewById(R.id.txtStoreMail);
-	    storeMail.setText(store.get(Utils.MAIL));
+	    storeMail.setText(store.getEmail());
 	    Linkify.addLinks(storeMail, Linkify.ALL);
 	}
 	

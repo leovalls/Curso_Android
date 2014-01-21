@@ -22,6 +22,7 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
     <string name="lorem_ipsum_list">*   Lorem ipsum dolor sit amet. \n\n*   Lorem ipsum dolor sit amet. \n\n*   Lorem ipsum dolor sit amet.</string>
     
+    <string name="image">Imágen</string>
         
     <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Cerrar</string>

@@ -1,30 +1,30 @@
 package com.leovalls.curso_android.utils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.content.Context;
-
-import com.leovalls.curso_android.data.Comment;
-import com.leovalls.curso_android.data.Store;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 public class Utils {
 	public static final String ID = "id";
 	public static final String STORE = "store";
+	public static final String NAME = "name";
 	public static final String DESCRIPTION = "descripcion";
 	public static final String ADDRESS = "address";
 	public static final String PHONE = "phone";
 	public static final String HORARY = "horary";
 	public static final String WEB = "web";
 	public static final String MAIL = "mail";
-
-	private static final String COMMENT_TYPE_STORE = "store";
-	private static final String COMMENT_TYPE_PHOTO = "photo";
 	
 
 	public static List<HashMap<String, String>> getStores() {
@@ -79,64 +79,6 @@ public class Utils {
 	}
 	
 
-	public static List<Store>  getStoresFromParse(Context context){
-		parseInitialize(context);
-		List<Store> stores = new ArrayList<Store>();
-		List<ParseObject> storesList = null;
-		
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Store");
-		try {
-			storesList = query.find();
-			for(ParseObject po : storesList){
-				Store store = new Store();
-				store.setName(po.getString("name"));
-				store.setAddress(po.getString("address"));
-				store.setEmail(po.getString("email"));
-				store.setHorary(po.getString("horary"));
-				store.setLatitude(po.getString("latitude"));
-				store.setLongitude(po.getString("longitude"));
-				store.setNumFavorites(po.getInt("numFavorites"));
-				store.setPhone(po.getString("phone"));
-				store.setWebsite(po.getString("website"));
-				store.setComments(getComments(context,po.getObjectId(),COMMENT_TYPE_STORE));
-				stores.add(store);
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return stores;
-	}
-	
-	public static List<Comment> getComments(Context context, String idObject, String commentType) {
-		parseInitialize(context);
-		List<Comment> comments = new ArrayList<Comment>();
-		List<ParseObject> commentsList = null;
-		
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Comment");
-		query.whereEqualTo("idObject", idObject);
-		query.whereEqualTo("type", commentType);
-		try {
-			commentsList = query.find();
-			for(ParseObject po: commentsList){
-				Comment comment = new Comment();
-				comment.setComment(po.getString("comment"));
-				comment.setIdObject(idObject);
-				comment.setType(commentType);
-				
-				comments.add(comment);
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return comments;
-	}
-
-
 	public static HashMap<String, String> getStoreById(String id){
 		HashMap<String, String> result = null;
 		List<HashMap<String, String>> storesList = getStores();
@@ -149,7 +91,42 @@ public class Utils {
 		return result;
 	}
 	
-	public static void parseInitialize(Context context){
-		Parse.initialize(context, "LDzxUNt6EOYbPNLgfIsQlSe9lsSFMV2V4EBaQaKy", "Wj844jtbrtDDa9sibcfqDxdl9EXkTMwEpDH11ql3");
+	@SuppressWarnings("deprecation")
+	public static Drawable bytesToDrawable(byte[] bytes){
+		return new BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+	}
+	
+	
+	@SuppressWarnings("deprecation")
+	public static Drawable drawableFromUrl(String url) {
+	    Bitmap x = null;
+
+	    HttpURLConnection connection;
+		try {
+			connection = (HttpURLConnection) new URL(url).openConnection();
+		    connection.connect();
+		    InputStream input = connection.getInputStream();
+		    x = BitmapFactory.decodeStream(input);
+		} catch (MalformedURLException e) {
+			Log.getStackTraceString(e);
+		} catch (IOException e) {
+			Log.getStackTraceString(e);
+		}
+
+	    return new BitmapDrawable(x);
+	}
+
+
+	@SuppressWarnings("deprecation")
+	public static Drawable resizeDrawable(Drawable image) {
+			if ((image == null) || !(image instanceof BitmapDrawable)) {
+		        return image;
+		    }
+
+			Bitmap b = ((BitmapDrawable)image).getBitmap();
+		    Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 1000, 500, false);
+
+		    return new BitmapDrawable(bitmapResized);
+
 	}
 }
