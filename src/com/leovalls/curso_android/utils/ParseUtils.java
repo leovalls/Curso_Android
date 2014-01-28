@@ -70,7 +70,7 @@ public class ParseUtils {
 	}
 
 	public static List<Comment> getComments(Context context, String idObject, String commentType) {
-		ParseUtils.parseInitialize(context);
+		parseInitialize(context);
 		List<Comment> comments = new ArrayList<Comment>();
 		List<ParseObject> commentsList = null;
 		
@@ -105,6 +105,11 @@ public class ParseUtils {
 		return result;
 	}
 
+	public static void insertParseObcjet(ParseObject po, Context context){
+		parseInitialize(context);
+		po.saveInBackground();
+	} 
+	
 	private static Store ParseObjectToStore(ParseObject po) {
 		Store store = new Store();
 		store.setId(po.getObjectId());
@@ -145,7 +150,8 @@ public class ParseUtils {
 			Log.getStackTraceString(e);
 		}
 
-		
 		return photo;
 	}
+	
+	
 }

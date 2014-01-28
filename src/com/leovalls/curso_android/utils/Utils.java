@@ -1,18 +1,26 @@
 package com.leovalls.curso_android.utils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 
 public class Utils {
@@ -25,6 +33,10 @@ public class Utils {
 	public static final String HORARY = "horary";
 	public static final String WEB = "web";
 	public static final String MAIL = "mail";
+	
+
+	public static final int FROM_CAMERA = 1;
+	public static final int FROM_GALLERY = 2;
 	
 
 	public static List<HashMap<String, String>> getStores() {
@@ -119,14 +131,75 @@ public class Utils {
 
 	@SuppressWarnings("deprecation")
 	public static Drawable resizeDrawable(Drawable image) {
-			if ((image == null) || !(image instanceof BitmapDrawable)) {
-		        return image;
-		    }
+		if ((image == null) || !(image instanceof BitmapDrawable)) {
+	        return image;
+	    }
 
-			Bitmap b = ((BitmapDrawable)image).getBitmap();
-		    Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 1000, 500, false);
+		Bitmap b = ((BitmapDrawable)image).getBitmap();
+	    Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 1000, 500, false);
 
-		    return new BitmapDrawable(bitmapResized);
+	    return new BitmapDrawable(bitmapResized);
+	}
+	
+	
+	public static File setUpFile(Context context) {
+		File albumDir;
+		
+		String albumName = getApplicationName(context);
+		//getExternalStoragePublicDirectory(DIRECTORY_PICTURES);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO){
+			albumDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), albumName);
+		} else {
+			albumDir = new File(Environment.getExternalStorageDirectory()+"/dcim/" +  albumName);
+		}
+		albumDir.mkdirs();
+		
+		String imgFileName = getFileName();
+		File image = new File(albumDir + "/" + imgFileName);
+		return image;
+	}
 
+
+	public static String getFileName() {
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
+									.format(Calendar.getInstance().getTime());
+		
+		String imgFileName = "IMG_" + timeStamp + ".jpg";
+		return imgFileName;
+	}
+	
+	public static String getApplicationName(Context context) {
+	    int stringId = context.getApplicationInfo().labelRes;
+	    return context.getString(stringId);
+	}
+	
+	public static Bitmap resizeBitmap(int targetW, int targetH, String photoPath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        
+		BitmapFactory.decodeFile(photoPath, options);
+        
+		int height = options.outHeight;
+		int width = options.outWidth;
+		int scaleFactor = 1;
+		
+		if (targetW > 0 || targetH > 0) {
+		    scaleFactor = Math.min(width/targetW, height/targetH);
+		}
+		options.inJustDecodeBounds = false;
+		options.inSampleSize = scaleFactor;
+		options.inPurgeable = true;
+		
+		return BitmapFactory.decodeFile(photoPath, options);
+	}   
+	
+	public static byte[] bitmapToByteArray(Bitmap bmp){
+		if (bmp == null){
+			return null;
+		}
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		return stream.toByteArray();
 	}
 }

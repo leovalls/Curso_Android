@@ -132,6 +132,7 @@ public class MainActivity extends ActionBarActivity {
 		FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
 		tr.hide(toHide1);
 		tr.hide(toHide2);
+		//TODO
 //		tr.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 		tr.show(toShow);
 		tr.commit();
@@ -139,5 +140,4 @@ public class MainActivity extends ActionBarActivity {
 		drawerList.setItemChecked(index, true);
 		drawerLayout.closeDrawer(drawerList);
 	}
-    
 }

@@ -23,7 +23,12 @@ public class PhotosListAdapter extends BaseAdapter {
 	public PhotosListAdapter(Context c, List<Photo> d) {
 		this.data = d;
 		inflater = LayoutInflater.from(c);
-	}    
+	}   
+
+    @Override
+	public void notifyDataSetChanged() {
+		super.notifyDataSetChanged();
+	} 
 	
     @Override
     public int getCount() {
@@ -79,5 +84,4 @@ public class PhotosListAdapter extends BaseAdapter {
     static class ViewHolder {
             public TextView description;
     }
-
 }

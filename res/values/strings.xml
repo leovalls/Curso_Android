@@ -18,11 +18,13 @@
     <string name="msg_store_share">Te comparto este lugar: %1$s </string>
     <string name="title_fragment_list">Listado</string>
     <string name="title_fragment_map">Mapa</string>
-    
+    <string name="takePhoto">Tomar foto</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
     <string name="lorem_ipsum_list">*   Lorem ipsum dolor sit amet. \n\n*   Lorem ipsum dolor sit amet. \n\n*   Lorem ipsum dolor sit amet.</string>
     
     <string name="image">Imágen</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
         
     <string name="drawer_open">Abrir</string>
     <string name="drawer_close">Cerrar</string>
